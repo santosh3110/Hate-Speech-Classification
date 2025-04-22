@@ -1,0 +1,42 @@
+data_ingestion:
+  bucket_name: "sontha_bucket"
+  zip_file_name: "hate_speech_dataset.zip"
+  artifacts_dir: "artifacts"
+  ingestion_dir: "data_ingestion"
+  imbalance_file_name: "dataset.csv"  
+  raw_file_name: "dataset.csv" 
+         
+data_transformation:
+  drop_columns: ["user_id", "subforum_id", "num_contexts"]
+  label_column: "label"
+  text_column: "text"
+  transformed_file_name: "final.csv"
+
+tokenizer:
+  max_num_words: 10000
+  max_sequence_length: 100
+
+embedding:
+  glove_path: "data/glove.6B.100d.txt"
+  embedding_dim: 100
+  trainable: true
+
+model_trainer:
+  conv1d_filters: 128
+  kernel_size: 5
+  pool_size: 2
+  lstm_units: 64
+  dropout_rate: 0.5
+  dense_units: 64
+  l2_regularization: 0.01
+  final_activation: "sigmoid"
+  batch_size: 32
+  epochs: 20
+  loss: "binary_crossentropy"
+  metrics: ["accuracy"]
+  validation_split: 0.2
+  random_state: 42
+  model_name: "best_model.keras"
+
+evaluation:
+  threshold: 0.4
