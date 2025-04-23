@@ -6,11 +6,9 @@ data_ingestion:
   imbalance_file_name: "dataset.csv"  
   raw_file_name: "dataset.csv" 
          
-data_transformation:
-  drop_columns: ["user_id", "subforum_id", "num_contexts"]
-  label_column: "label"
-  text_column: "text"
-  transformed_file_name: "final.csv"
+preprocessing:
+  cleaned_file_name: "cleaned_data.csv"
+  stopwords: "english"
 
 tokenizer:
   max_num_words: 10000

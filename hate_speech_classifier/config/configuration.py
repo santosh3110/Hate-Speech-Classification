@@ -1,7 +1,6 @@
 from hate_speech_classifier.utils.common import load_yaml
 from hate_speech_classifier.entity.config_entity import (
-    DataIngestionConfig, DataTransformationConfig, TokenizerConfig,
-    EmbeddingConfig, ModelTrainerConfig, EvaluationConfig
+    DataIngestionConfig, PreprocessingConfig
 )
 
 class ConfigurationManager:
@@ -21,17 +20,10 @@ class ConfigurationManager:
             raw_file_name=config["raw_file_name"]
         )
 
-    def get_data_transformation_config(self) -> DataTransformationConfig:
-        return DataTransformationConfig(**self.config['data_transformation'])
+    def get_preprocessing_config(self) -> PreprocessingConfig:
+        config = self.config["preprocessing"]
 
-    def get_tokenizer_config(self) -> TokenizerConfig:
-        return TokenizerConfig(**self.config['tokenizer'])
-
-    def get_embedding_config(self) -> EmbeddingConfig:
-        return EmbeddingConfig(**self.config['embedding'])
-
-    def get_model_trainer_config(self) -> ModelTrainerConfig:
-        return ModelTrainerConfig(**self.config['model_trainer'])
-
-    def get_evaluation_config(self) -> EvaluationConfig:
-        return EvaluationConfig(**self.config['evaluation'])
+        return PreprocessingConfig(
+            cleaned_file_name=config["cleaned_file_name"],
+            stopwords=config["stopwords"]
+        )
