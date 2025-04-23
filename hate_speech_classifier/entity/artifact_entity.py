@@ -24,3 +24,8 @@ class ModelTrainingArtifacts:
     trained_model_path: str
     history_path: str
 
+@dataclass
+class ModelEvaluationArtifacts:
+    is_model_accepted: bool
+
+

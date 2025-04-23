@@ -1,6 +1,6 @@
 from hate_speech_classifier.utils.common import load_yaml
 from hate_speech_classifier.entity.config_entity import (
-    DataIngestionConfig, PreprocessingConfig, EmbeddingConfig, ModelConfig, ModelTrainingConfig
+    DataIngestionConfig, PreprocessingConfig, EmbeddingConfig, ModelConfig, ModelTrainingConfig, ModelEvaluationConfig, ModelPusherConfig
 )
 
 class ConfigurationManager:
@@ -48,3 +48,11 @@ class ConfigurationManager:
     def get_model_training_config(self) -> ModelTrainingConfig:
         training = self.config['training']
         return ModelTrainingConfig(**training)
+    
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config['evaluation']
+        return ModelEvaluationConfig(**config)
+
+    def get_model_pusher_config(self) -> ModelPusherConfig:
+        config = self.config['pusher']
+        return ModelPusherConfig(**config)

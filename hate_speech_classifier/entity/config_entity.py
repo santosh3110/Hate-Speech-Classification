@@ -53,3 +53,13 @@ class ModelTrainingConfig:
     patience: int
     class_threshold: float
 
+@dataclass
+class ModelEvaluationConfig:
+    metrics_file: str
+    best_accuracy_file: str
+
+@dataclass
+class ModelPusherConfig:
+    bucket_name: str
+    model_name: str
+

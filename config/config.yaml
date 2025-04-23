@@ -45,7 +45,10 @@ training:
   patience: 5
   class_threshold: 0.4
 
-
-
 evaluation:
-  threshold: 0.4
+  metrics_file: "artifacts/model/evaluation_metrics.json"
+  best_accuracy_file: "artifacts/model/best_accuracy.txt"
+
+pusher:
+  bucket_name: "sontha_bucket"
+  model_name: "best_model.h5"

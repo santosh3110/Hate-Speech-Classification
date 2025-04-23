@@ -4,8 +4,10 @@ from hate_speech_classifier.components.stage_01_preprocessing import Preprocessi
 from hate_speech_classifier.components.stage_02_embeddings import EmbeddingLayer
 from hate_speech_classifier.components.stage_03_model_building import ModelBuilder
 from hate_speech_classifier.components.stage_04_model_training import ModelTrainer
+from hate_speech_classifier.components.stage_05_model_evaluation import ModelEvaluation
+from hate_speech_classifier.components.stage_06_model_pusher import ModelPusher
 
-from hate_speech_classifier.entity.artifact_entity import PreprocessingArtifacts,EmbeddingArtifacts
+from hate_speech_classifier.entity.artifact_entity import PreprocessingArtifacts,EmbeddingArtifacts,ModelEvaluationArtifacts
 
 
 def run_pipeline():
@@ -48,6 +50,26 @@ def run_pipeline():
     trainer = ModelTrainer(model_config, embedding_artifacts)
     training_artifacts = trainer.initiate()
     print(f"Model Training Done! Saved to: {training_artifacts.trained_model_path}")
+
+    # Step 6: Model Evaluation
+    print("Starting: Model Evaluation")
+    eval_config = config.get_model_evaluation_config()
+    class_threshold = model_config.class_threshold  # from training config
+    evaluator = ModelEvaluation(eval_config, training_artifacts, embedding_artifacts, class_threshold)
+    is_model_accepted = evaluator.initiate()
+
+    if is_model_accepted:
+        print("Model accepted. Proceeding to push model...")
+        # Step 7: Push Model to GCS
+        pusher_config = config.get_model_pusher_config()
+        pusher = ModelPusher(pusher_config, training_artifacts)
+        pusher.initiate()
+        print("Model pushed to GCS.")
+    else:
+        print("Model rejected. Not pushing to GCS.")
+
+
+    
 
 
 
