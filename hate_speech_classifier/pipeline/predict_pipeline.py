@@ -37,7 +37,7 @@ class PredictionPipeline:
         except Exception as e:
             raise CustomException(e, sys)
 
-    def predict(self, text: str) -> str:
+    def predict(self, text: str) -> dict:
         try:
             model_file = self.get_best_model_from_gcs()
             model = load_model(model_file)
@@ -49,8 +49,13 @@ class PredictionPipeline:
             padded = pad_sequences(sequence, maxlen=100)
 
             # Predict
-            prediction = model.predict(padded)[0][0]
-            return "Hate" if prediction >= 0.4 else "No Hate"
+            probability = float(model.predict(padded)[0][0])
+            label = "Hate" if probability >= 0.4 else "No Hate"
+
+            return {
+                "label": label,
+                "probability": probability
+            }
 
         except Exception as e:
             raise CustomException(e, sys)

@@ -3,25 +3,114 @@
 <head>
     <title>Hate Speech Detector</title>
     <style>
-        body { font-family: Arial; margin: 40px; background-color: #f4f4f4; }
-        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0px 0px 10px #ccc; max-width: 500px; margin: auto; }
-        input[type="text"] { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; }
-        input[type="submit"] { padding: 10px 20px; background-color: #2d89ef; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        .result { font-size: 18px; margin-top: 20px; }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            background-image: url("/static/hate.png");
+            background-position: right center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 8%;
+        }
+
+        .content-box {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: 12px;
+            max-width: 600px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: #2d89ef;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 25px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        input[type="submit"] {
+            padding: 12px 25px;
+            font-size: 15px;
+            background-color: #2d89ef;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 25px;
+            color: #222;
+        }
+
+        .description {
+            font-size: 14px;
+            margin-top: 30px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #aaa;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Hate Speech Classifier</h2>
-        <form method="post" action="/predict">
-            <input type="text" name="text" placeholder="Enter text here..." value="{{ input_text or '' }}" required />
-            <input type="submit" value="Classify" />
-        </form>
-        {% if prediction %}
-        <div class="result">
-            <strong>Prediction:</strong> {{ prediction }}
+        <div class="content-box">
+            <h2>Hate Speech Classifier</h2>
+            <div class="subtitle">
+                Words have power. In today's digital world, hate speech spreads faster than ever, hurting communities and individuals alike.
+                This tool helps detect and prevent hate speech — enabling safer conversations, one prediction at a time.
+            </div>
+
+            <form method="post" action="/predict">
+                <input type="text" name="text" placeholder="Enter your text here..." value="{{ input_text or '' }}" required />
+                <input type="submit" value="Classify" />
+            </form>
+
+            {% if prediction %}
+            <div class="result">
+                Prediction: <span style="color: {{ 'crimson' if prediction.label == 'Hate' else 'green' }}">{{ prediction.label }}</span><br>
+                Chances of being Hate: {{ '{:.2f}'.format(prediction.probability * 100) }}%
+            </div>
+            {% endif %}
+
+            <div class="description">
+                Love All.... Hate No one!!<br>
+                <strong>App proudly built by <strong>Santosh Guntupalli</strong> — with a mission to build tech for social good.</strong>
+            </div>
+
+            <div class="footer">
+                Powered by FastAPI ⚡ | TensorFlow 🤖 | GCP ☁️
+            </div>
         </div>
-        {% endif %}
     </div>
 </body>
 </html>
