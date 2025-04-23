@@ -54,7 +54,7 @@ def run_pipeline():
     # Step 6: Model Evaluation
     print("Starting: Model Evaluation")
     eval_config = config.get_model_evaluation_config()
-    class_threshold = model_config.class_threshold  # from training config
+    class_threshold = model_config.class_threshold 
     evaluator = ModelEvaluation(eval_config, training_artifacts, embedding_artifacts, class_threshold)
     is_model_accepted = evaluator.initiate()
 

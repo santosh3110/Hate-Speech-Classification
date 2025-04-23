@@ -4,7 +4,7 @@ import json
 import numpy as np
 from keras.models import model_from_json
 from keras.callbacks import EarlyStopping, ModelCheckpoint
-
+from sklearn.utils.class_weight import compute_class_weight
 from hate_speech_classifier.utils.common import save_json
 from hate_speech_classifier.logger.log import logging
 from hate_speech_classifier.exception.exception_handler import CustomException
@@ -47,6 +47,14 @@ class ModelTrainer:
                 ModelCheckpoint(filepath=self.config.model_save_path, monitor='val_loss', save_best_only=True)
             ]
 
+            # compute clasweights
+            class_weights = compute_class_weight(
+                class_weight='balanced',
+                classes=np.unique(y_train),
+                y=y_train
+                )
+            class_weight_dict = dict(enumerate(class_weights))
+
             # Fit model
             history = model.fit(
                 X_train,
@@ -55,6 +63,7 @@ class ModelTrainer:
                 epochs=self.config.epochs,
                 validation_split=self.config.validation_split,
                 callbacks=callbacks,
+                class_weight=class_weight_dict,
                 verbose=1
             )
 

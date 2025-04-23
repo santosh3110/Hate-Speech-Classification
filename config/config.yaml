@@ -47,7 +47,7 @@ training:
 
 evaluation:
   metrics_file: "artifacts/model/evaluation_metrics.json"
-  best_accuracy_file: "artifacts/model/best_accuracy.txt"
+  best_accuracy_file: "artifacts/model/best_f1_hate.txt"
 
 pusher:
   bucket_name: "sontha_bucket"
