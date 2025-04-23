@@ -9,3 +9,9 @@ class DataIngestionArtifacts:
 @dataclass
 class PreprocessingArtifacts:
     cleaned_data_path: str
+
+@dataclass
+class EmbeddingArtifacts:
+    padded_sequences_path: str
+    tokenizer_path: str
+    embedding_matrix_path: str

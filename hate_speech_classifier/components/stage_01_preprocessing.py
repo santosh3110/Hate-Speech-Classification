@@ -43,6 +43,7 @@ class Preprocessing:
 
             df = pd.read_csv(self.ingestion_artifacts.raw_data_file_path)
             df = df[(df["label"] == 0) | (df["label"] == 1)]
+            df = df.drop_duplicates()
             df["clean_text"] = df["text"].apply(self.clean_text)
 
             cleaned_data_path = os.path.join(

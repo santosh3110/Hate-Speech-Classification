@@ -1,5 +1,7 @@
 import yaml
 import pandas as pd
+import pickle
+import numpy as np
 from typing import Any
 from box import ConfigBox  
 
@@ -16,4 +18,11 @@ def write_yaml(path: str, data: Any) -> None:
 
 def save_csv(df: pd.DataFrame, path: str):
     df.to_csv(path, index=False)
+
+def save_pickle(obj, path):
+    with open(path, 'wb') as f:
+        pickle.dump(obj, f)
+
+def save_numpy(array, path):
+    np.save(path, array)
 

@@ -1,6 +1,6 @@
 from hate_speech_classifier.utils.common import load_yaml
 from hate_speech_classifier.entity.config_entity import (
-    DataIngestionConfig, PreprocessingConfig
+    DataIngestionConfig, PreprocessingConfig, EmbeddingConfig
 )
 
 class ConfigurationManager:
@@ -27,3 +27,16 @@ class ConfigurationManager:
             cleaned_file_name=config["cleaned_file_name"],
             stopwords=config["stopwords"]
         )
+    
+    def get_embedding_config(self) -> EmbeddingConfig:
+        config = self.config["embeddings"]
+
+        return EmbeddingConfig(
+            max_words=config["max_words"],
+            max_seq_length=config["max_seq_length"],
+            embedding_dim=config["embedding_dim"],
+            glove_file=config["glove_file"],
+            embedded_matrix_file=config["embedded_matrix_file"],
+            tokenizer_file=config["tokenizer_file"]
+        )
+

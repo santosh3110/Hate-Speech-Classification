@@ -10,14 +10,14 @@ preprocessing:
   cleaned_file_name: "cleaned_data.csv"
   stopwords: "english"
 
-tokenizer:
-  max_num_words: 10000
-  max_sequence_length: 100
-
-embedding:
-  glove_path: "data/glove.6B.100d.txt"
+embeddings:
+  max_words: 10000
+  max_seq_length: 100
   embedding_dim: 100
-  trainable: true
+  glove_file: "glove.6B.100d.txt"
+  embedded_matrix_file: "embedding_matrix.npy"
+  tokenizer_file: "tokenizer.pkl"
+
 
 model_trainer:
   conv1d_filters: 128

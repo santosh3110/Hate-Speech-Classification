@@ -174,4 +174,4 @@ cython_debug/
 .pypirc
 
 research/glove.6B.100d.txt
-research/glove.6B.100d.txt
+glove.6B.100d.txt
