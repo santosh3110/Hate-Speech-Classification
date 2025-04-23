@@ -5,6 +5,7 @@ import pandas as pd
 import pickle
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+from sklearn.model_selection import train_test_split
 
 from hate_speech_classifier.logger.log import logging
 from hate_speech_classifier.exception.exception_handler import CustomException
@@ -24,6 +25,7 @@ class EmbeddingLayer:
 
             df = pd.read_csv(self.artifacts.cleaned_data_path)
             texts = df["clean_text"].fillna("").astype(str).tolist()
+            labels = df["label"].values
 
 
             tokenizer = Tokenizer(num_words=self.config.max_words)
@@ -31,12 +33,21 @@ class EmbeddingLayer:
             sequences = tokenizer.texts_to_sequences(texts)
             padded = pad_sequences(sequences, maxlen=self.config.max_seq_length)
 
-            # Save padded
-            padded_path = self.artifacts.cleaned_data_path.replace("cleaned_data.csv", "padded.npy")
-            np.save(padded_path, padded)
+            # Train-test split
+            X_train, X_test, y_train, y_test = train_test_split(
+                padded, labels, test_size=0.25, random_state=42, stratify=labels
+            )
+
+            split_path = os.path.join(self.config.artifacts_dir, "split")
+            os.makedirs(split_path, exist_ok=True)
+
+            save_numpy(X_train, os.path.join(split_path, "X_train.npy"))
+            save_numpy(X_test, os.path.join(split_path, "X_test.npy"))
+            save_numpy(y_train, os.path.join(split_path, "y_train.npy"))
+            save_numpy(y_test, os.path.join(split_path, "y_test.npy"))
 
             # Save tokenizer
-            tokenizer_path = os.path.join(os.path.dirname(padded_path), self.config.tokenizer_file)
+            tokenizer_path = os.path.join(split_path, self.config.tokenizer_file)
             with open(tokenizer_path, "wb") as f:
                 pickle.dump(tokenizer, f)
 
@@ -58,16 +69,20 @@ class EmbeddingLayer:
                         embedding_matrix[i] = vector
 
             # Save matrix
-            embedding_matrix_path = os.path.join(os.path.dirname(padded_path), self.config.embedded_matrix_file)
+            embedding_matrix_path = os.path.join(split_path, self.config.embedded_matrix_file)
             np.save(embedding_matrix_path, embedding_matrix)
 
             logging.info("Embedding matrix + tokenizer + padded sequences saved.")
 
             return EmbeddingArtifacts(
-                padded_sequences_path=padded_path,
                 tokenizer_path=tokenizer_path,
-                embedding_matrix_path=embedding_matrix_path
+                embedding_matrix_path=embedding_matrix_path,
+                X_train_path=os.path.join(split_path, "X_train.npy"),
+                X_test_path=os.path.join(split_path, "X_test.npy"),
+                y_train_path=os.path.join(split_path, "y_train.npy"),
+                y_test_path=os.path.join(split_path, "y_test.npy")
             )
+
 
         except Exception as e:
             raise CustomException(e, sys)

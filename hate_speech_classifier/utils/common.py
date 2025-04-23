@@ -1,6 +1,7 @@
 import yaml
 import pandas as pd
 import pickle
+import json
 import numpy as np
 from typing import Any
 from box import ConfigBox  
@@ -25,4 +26,9 @@ def save_pickle(obj, path):
 
 def save_numpy(array, path):
     np.save(path, array)
+
+def save_json(data: dict, filepath: str):
+    with open(filepath, 'w') as f:
+        json.dump(data, f, indent=4)
+
 

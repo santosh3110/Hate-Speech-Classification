@@ -2,6 +2,9 @@ from hate_speech_classifier.config.configuration import ConfigurationManager
 from hate_speech_classifier.components.stage_00_data_ingestion import DataIngestion
 from hate_speech_classifier.components.stage_01_preprocessing import Preprocessing
 from hate_speech_classifier.components.stage_02_embeddings import EmbeddingLayer
+from hate_speech_classifier.components.stage_03_model_building import ModelBuilder
+from hate_speech_classifier.components.stage_04_model_training import ModelTrainer
+
 from hate_speech_classifier.entity.artifact_entity import PreprocessingArtifacts,EmbeddingArtifacts
 
 
@@ -31,6 +34,22 @@ def run_pipeline():
     embedder = EmbeddingLayer(embedding_config, preprocessing_artifacts)
     embedding_artifacts = embedder.initiate()
     print(f"Embedding Setup Done!\nTokenizer: {embedding_artifacts.tokenizer_path}")
+
+    # Step 4: Build Model
+    print("Starting: Model Building")
+    model_config = config.get_model_config()
+    builder = ModelBuilder(model_config, embedding_artifacts)
+    model = builder.build_model()
+    print("Model Built Successfully")
+  
+    # Step 5: Model Training
+    print("Starting: Model Training")
+    model_config = config.get_model_training_config()
+    trainer = ModelTrainer(model_config, embedding_artifacts)
+    training_artifacts = trainer.initiate()
+    print(f"Model Training Done! Saved to: {training_artifacts.trained_model_path}")
+
+
 
 
 

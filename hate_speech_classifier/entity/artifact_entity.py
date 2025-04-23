@@ -12,6 +12,15 @@ class PreprocessingArtifacts:
 
 @dataclass
 class EmbeddingArtifacts:
-    padded_sequences_path: str
     tokenizer_path: str
     embedding_matrix_path: str
+    X_train_path: str
+    X_test_path: str
+    y_train_path: str
+    y_test_path: str
+
+@dataclass
+class ModelTrainingArtifacts:
+    trained_model_path: str
+    history_path: str
+
