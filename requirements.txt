@@ -9,6 +9,7 @@ uvicorn
 jinja2
 python-multipart
 pyYAML
+python-box
 
 
 -e .
