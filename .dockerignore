@@ -1,0 +1,48 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+.git
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignore virtual environment
+venv/
+env/
+.myenv/
+.myvenv/
+
+# Ignore model artifacts & logs
+artifacts/
+*.log
+*.h5
+*.pkl
+*.npy
+*.json
+
+# Ignore Jupyter notebooks
+*.ipynb
+
+# Ignore dataset zips or CSVs
+*.zip
+*.csv
+
+# Ignore build and dist folders
+build/
+dist/
+*.egg-info/
+
+# Ignore GloVe file (assume it's large and added separately)
+glove.6B.100d.txt
+
+# Ignore OS/system files
+.DS_Store
+Thumbs.db
+
+# Ignore local config if any
+*.env
+.env.*
