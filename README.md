@@ -42,9 +42,25 @@ The **Hate Speech Classifier** detects hate speech in English text by leveraging
 ## 🏗️ System Architecture
 
 The project consists of the following components:
-
-Hate-Speech-Classification/ ├── hate_speech_classifier/ # All modular pipeline components │ ├── components/ # Data ingestion, preprocessing, embeddings, model building, training, evaluation, prediction │ ├── config/ # Configuration files and management │ ├── constants/ # Global constants │ ├── entity/ # Data classes for config and artifacts │ ├── exception/ # Custom exception handling │ ├── logger/ # Logging configuration │ └── utils/ # Utility functions (common, metrics, visualization) ├── config/ # config.yaml and other config files ├── templates/ # Jinja2 templates for FastAPI UI ├── static/ # Static files (images, CSS) ├── Dockerfile # Container specification ├── .dockerignore # Excluded files/folders from Docker image ├── requirements.txt # Project dependencies ├── setup.py # For pip-installable package distribution └── .github/workflows/ # GitHub Actions CI/CD workflow files
-
+```
+Hate-Speech-Classification/
+├── hate_speech_classifier/
+│   ├── components/
+│   ├── config/
+│   ├── constants/
+│   ├── entity/
+│   ├── exception/
+│   ├── logger/
+│   └── utils/
+├── config/
+├── templates/
+├── static/
+├── Dockerfile
+├── .dockerignore
+├── requirements.txt
+├── setup.py
+└── .github/workflows/
+```
 
 ---
 
@@ -109,11 +125,11 @@ Our CI/CD pipeline uses GitHub Actions to:
 
 GitHub Secrets Required:
 
-AWS_ACCESS_KEY_ID=****
-AWS_SECRET_ACCESS_KEY=****
-AWS_REGION=eu-west-2
-AWS_ECR_LOGIN_URI=741448950156.dkr.ecr.eu-west-2.amazonaws.com
-ECR_REPOSITORY_NAME=hate_speech_classifier
+      AWS_ACCESS_KEY_ID=****
+      AWS_SECRET_ACCESS_KEY=****
+      AWS_REGION=eu-west-2
+      AWS_ECR_LOGIN_URI=741448950156.dkr.ecr.eu-west-2.amazonaws.com
+      ECR_REPOSITORY_NAME=hate_speech_classifier
 
 ![alt text](image.png)
 
@@ -147,25 +163,32 @@ CI/CD Pipeline Success:
 
 ![alt text](image-3.png)
 
+---
+
 🧠 Model Performance (Metrics)
-Metric	Value
-Accuracy	80.97%
-F1-Score(hate)	0.44
-Confusion Matrix	
-![alt text](artifacts/model/confusion_matrix.png)
+
+| Metric           | Value   |
+|------------------|---------|
+| Accuracy         | 80.97%  |
+| F1-Score (Hate)  | 0.44    |
+
+📉 Confusion Matrix
+
+![Confusion Matrix](artifacts/model/confusion_matrix.png)
+
 
 📚 How to Run Locally
 
     Clone the repository:
 
-git clone https://github.com/santosh3110/Hate-Speech-Classification.git
-cd Hate-Speech-Classification
+      git clone https://github.com/santosh3110/Hate-Speech-Classification.git
+      cd Hate-Speech-Classification
 
 Set up the environment:
 
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+      python -m venv venv
+      source venv/bin/activate  # On Windows: venv\Scripts\activate
+      pip install -r requirements.txt
 
 Run the FastAPI app:
 
@@ -177,7 +200,7 @@ Run the FastAPI app:
 
     Build the image:
 
-docker build -t hate-speech-app .
+      docker build -t hate-speech-app .
 
 Run the container:
 
@@ -200,26 +223,28 @@ Follow these steps:
 📜 License
 
 This project is licensed under the Apache 2.0 License – free for use and contribution.
+
 🙌 Contributions
 
 Contributions, improvements, and ideas are welcome! Feel free to fork the project, open issues, and submit pull requests.
+
+---
+
 📬 Contact
 
-Santosh Guntupalli
+👤 Santosh Guntupalli**  
+📧 Email: [santoshkumarguntupalli@gmail.com](mailto:santoshkumarguntupalli@gmail.com)  
+🐙 GitHub: [@santosh3110](https://github.com/santosh3110)  
 
-    Email: santoshkumarguntupalli@gmail.com
-
-    GitHub: @santosh3110
-
-    💬 "Love all, hate none — and let AI help us build a kinder internet."
+> 💬 _"Love all, hate none — and let AI help us build a kinder internet."_
 
 ⭐ Show Some Love
 
 If you found this project helpful:
 
-    Star this repo on GitHub
+   Star this repo on GitHub
 
-    Fork and share your improvements
+   Fork and share your improvements
 
-    Spread the word to help create a safer digital space!
+   Spread the word to help create a safer digital space!
 
