@@ -1,12 +1,17 @@
-numpy==2.2.5
-pandas==2.2.3
-nltk==3.9.1
-scikit-learn==1.6.1
-keras==3.9.2
-tensorflow==2.19.0
+numpy
+pandas
+nltk
+scikit-learn
+keras
+tensorflow
 fastapi
 uvicorn
 jinja2
 python-multipart
+shutil
+zipfile
+pickle
+json
+
 
 -e .
