@@ -8,6 +8,7 @@ fastapi
 uvicorn
 jinja2
 python-multipart
+pyYAML
 
 
 -e .
