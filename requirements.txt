@@ -8,7 +8,6 @@ fastapi
 uvicorn
 jinja2
 python-multipart
-shutil
 zipfile
 pickle
 json
