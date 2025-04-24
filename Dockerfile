@@ -23,7 +23,7 @@ RUN python -m nltk.downloader stopwords
 COPY . .
 
 # Expose the port FastAPI will run on
-EXPOSE 10000
+EXPOSE 8080
 
 # Start the FastAPI app
 CMD ["uvicorn", "predict:app", "--host", "0.0.0.0", "--port", "8080"]
