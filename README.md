@@ -153,6 +153,9 @@ Deployment Steps:
 
 Alternatively, the app is deployed on Render and is live at:
 https://hate-speech-classification-hsfq.onrender.com/predict
+
+---
+
 📸 Screenshots:
 
 Web UI on Render:
