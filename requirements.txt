@@ -8,9 +8,6 @@ fastapi
 uvicorn
 jinja2
 python-multipart
-zipfile
-pickle
-json
 
 
 -e .
